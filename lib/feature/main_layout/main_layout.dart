@@ -1,14 +1,14 @@
-import 'package:ecommercee/core/resources/assets_managet.dart';
+import 'package:ecommercee/core/resources/assets_manager.dart';
 import 'package:ecommercee/core/resources/color_manager.dart';
 import 'package:ecommercee/core/widget/custom_elevated_button.dart';
 import 'package:ecommercee/core/widget/search_app_bar.dart';
 import 'package:ecommercee/feature/main_layout/favorite_tab/favorite_tab.dart';
 import 'package:ecommercee/feature/main_layout/home_screen/home_screen.dart';
+import 'package:ecommercee/feature/main_layout/products/products.dart';
 import 'package:ecommercee/feature/main_layout/profile_tab/profile_tab.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import 'categories/categories.dart';
 
 class MainLayout extends StatefulWidget {
   @override
@@ -19,9 +19,7 @@ class _MainLayoutState extends State<MainLayout> {
   int currentIndex = 0;
 
   List<Widget> tabs = [
-    HomeScreen(),
-    Categories(),
-    FavoriteTab(),
+    HomeScreen(), Product(), FavoriteTab(),
     profile_tab()
   ];
 

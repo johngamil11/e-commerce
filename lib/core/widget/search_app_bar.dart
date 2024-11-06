@@ -1,8 +1,9 @@
+import 'package:ecommercee/core/routes_manager/routes.dart';
 import 'package:ecommercee/core/widget/styles_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../resources/assets_managet.dart';
+import '../resources/assets_manager.dart';
 import '../resources/color_manager.dart';
 import '../resources/font_manager.dart';
 import '../resources/values_manager.dart';
@@ -59,7 +60,10 @@ class SearchAppBar extends StatelessWidget {
                 ),
               ),
               IconButton(
-                  onPressed: () {}, icon: Image.asset(IconAssets.cartIcon))
+                  onPressed: () {
+                    Navigator.pushNamed(context, Routes.cartRoute);
+                  },
+                  icon: Image.asset(IconAssets.cartIcon))
             ],
           )
         ],
