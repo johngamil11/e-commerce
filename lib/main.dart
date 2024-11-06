@@ -1,6 +1,9 @@
 import 'package:ecommercee/core/routes_manager/route_generator.dart';
 import 'package:ecommercee/core/routes_manager/routes.dart';
+import 'package:ecommercee/core/widget/shared_preference_utils.dart';
 import 'package:ecommercee/feature/auth/register/register_screen.dart';
+import 'package:ecommercee/feature/main_layout/home_screen/cubit/home_tab_view_model.dart';
+import 'package:ecommercee/feature/main_layout/products/cubit/product_screen_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -8,15 +11,37 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'domain/di/di.dart';
 import 'my_bloc_observer.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   Bloc.observer = MyBlocObserver();
   configureDependencies();
-  runApp(MyApp());
+  await SharedPreferenceUtils.init();
+  // var token = SharedPreferenceUtils.getData(key: 'token');
+  // String route;
+  // if (token == null) {
+  //   route = Routes.signInRoute;
+  // } else {
+  //   route = Routes.mainRoute;
+  // }
+  runApp(
+      // MyApp());
+      MultiBlocProvider(providers: [
+    BlocProvider<HomeTabViewModel>(
+      create: (context) => getIt<HomeTabViewModel>(),
+    ),
+    BlocProvider<ProductScreenViewModel>(
+      create: (context) => getIt<ProductScreenViewModel>(),
+    )
+  ], child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
+  // String route ;
+  MyApp();
   @override
   Widget build(BuildContext context) {
+    var token = SharedPreferenceUtils.loadData('token');
+
     return ScreenUtilInit(
       designSize: const Size(430, 932),
       minTextAdapt: true,
@@ -26,7 +51,7 @@ class MyApp extends StatelessWidget {
         return MaterialApp(
           debugShowCheckedModeBanner: false,
           home: child,
-          initialRoute: Routes.mainRoute,
+          initialRoute: token == null ? Routes.signInRoute : Routes.mainRoute,
           onGenerateRoute: RouteGenerator.getRoute,
         );
       },

@@ -1,7 +1,9 @@
 import 'package:ecommercee/core/routes_manager/routes.dart';
 import 'package:ecommercee/feature/auth/login/login_screen.dart';
 import 'package:ecommercee/feature/auth/register/register_screen.dart';
+import 'package:ecommercee/feature/main_layout/cart/cart_screen.dart';
 import 'package:ecommercee/feature/main_layout/main_layout.dart';
+import 'package:ecommercee/feature/main_layout/products/Products_details/products_details.dart';
 import 'package:flutter/material.dart';
 
 class RouteGenerator {
@@ -15,11 +17,14 @@ class RouteGenerator {
       // case Routes.productsScreenRoute:
       //   return MaterialPageRoute(builder: (_) => ProductsScreen());
       //
-      // // case Routes.productDetails:
-      // //   return MaterialPageRoute(builder: (_) =>  ProductDetails());
-      //
+      // case Routes.productDetails:
+      // return MaterialPageRoute(builder: (_) =>  ProductDetails(product: ,));
+
       case Routes.signInRoute:
         return MaterialPageRoute(builder: (_) => LoginScreen());
+
+      case Routes.cartRoute:
+        return MaterialPageRoute(builder: (_) => CartScreen());
       //
       // case Routes.splashScreenRoute:
       //   return MaterialPageRoute(builder: (_) => const SplashScreen());

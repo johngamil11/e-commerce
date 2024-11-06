@@ -1,8 +1,9 @@
-import 'package:ecommercee/core/resources/assets_managet.dart';
+import 'package:ecommercee/core/resources/assets_manager.dart';
 import 'package:ecommercee/core/resources/color_manager.dart';
 import 'package:ecommercee/core/routes_manager/routes.dart';
 import 'package:ecommercee/core/widget/custom_elevated_button.dart';
 import 'package:ecommercee/core/widget/dialog_utils.dart';
+import 'package:ecommercee/core/widget/shared_preference_utils.dart';
 import 'package:ecommercee/core/widget/validators.dart';
 import 'package:ecommercee/feature/auth/login/cubit/login_view_model.dart';
 import 'package:ecommercee/feature/auth/register/cubit/register_states.dart';
@@ -35,8 +36,16 @@ class LoginScreen extends StatelessWidget {
         } else if (state is LoginSuccessState) {
           DialogUtils.hideLoading(context);
           DialogUtils.showMessage(
-              context: context, message: 'login Successfully');
-          // SnackBar(content: Text('Register Successfully'));
+            context: context,
+            message: 'Login Successfully',
+            title: 'Success',
+            posActionName: 'Ok',
+          );
+          //todo: save token
+          SharedPreferenceUtils.saveData(
+              'token', state.loginResponseEntity.token);
+          //todo: navigate to home
+          Navigator.of(context).pushNamed(Routes.mainRoute);
         }
       },
       child: Scaffold(

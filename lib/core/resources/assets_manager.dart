@@ -10,6 +10,9 @@ abstract class ImageAssets {
   static const String slide1 = '$imagePath/slide1.png';
   static const String slide2 = '$imagePath/slide2.png';
   static const String slide3 = '$imagePath/slide3.png';
+  static const String cart = '$imagePath/cart.png';
+  static const String favorite_blue = '$imagePath/favorite_blue.png';
+  static const String favorite_white = '$imagePath/favorite_white.png';
 }
 
 abstract class IconAssets {
