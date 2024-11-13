@@ -1,5 +1,6 @@
 import 'package:ecommercee/core/routes_manager/routes.dart';
 import 'package:ecommercee/core/widget/styles_manager.dart';
+import 'package:ecommercee/feature/main_layout/products/cubit/product_screen_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -63,7 +64,11 @@ class SearchAppBar extends StatelessWidget {
                   onPressed: () {
                     Navigator.pushNamed(context, Routes.cartRoute);
                   },
-                  icon: Image.asset(IconAssets.cartIcon))
+                  icon: Badge(
+                      label: Text(ProductScreenViewModel.get(context)
+                          .numOfCartItems
+                          .toString()),
+                      child: Image.asset(IconAssets.cartIcon)))
             ],
           )
         ],

@@ -1,11 +1,16 @@
+import 'package:ecommercee/feature/main_layout/cart/cubit/cart_screen_view_model.dart';
 import 'package:ecommercee/feature/main_layout/products/Products_details/widge/count_item_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/resources/assets_manager.dart';
 import '../../../../core/resources/color_manager.dart';
+import '../../../../domain/entities/GetCartResponseEntity.dart';
 
 class CustomeItemCart extends StatelessWidget {
+  GetProductsCartEntity productEntity;
+
+  CustomeItemCart({required this.productEntity});
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -24,8 +29,8 @@ class CustomeItemCart extends StatelessWidget {
                 border: Border.all(color: ColorManager.primary, width: 2),
                 borderRadius: BorderRadius.circular(10),
               ),
-              child: Image.asset(
-                ImageAssets.slide1,
+              child: Image.network(
+                productEntity.product!.imageCover ?? '',
                 height: 120.h,
                 width: 130.w,
                 fit: BoxFit.fill,
@@ -37,18 +42,25 @@ class CustomeItemCart extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  Text(
-                    'Nike Air Jordon',
-                    style: TextStyle(
+                  Container(
+                    width: 180,
+                    child: Text(
+                      productEntity.product!.title ?? '',
+                      maxLines: 1,
+                      style: TextStyle(
                         color: ColorManager.primary,
-                        fontSize: 22,
-                        fontWeight: FontWeight.bold),
+                        fontSize: 14,
+                      ),
+                    ),
                   ),
                   SizedBox(
-                    width: 25.w,
+                    width: 15.w,
                   ),
                   InkWell(
-                      onTap: () {},
+                      onTap: () {
+                        CartScreenViewModel.get(context)
+                            .deleteItemInCart(productEntity.product!.id ?? '');
+                      },
                       child: Icon(
                         Icons.delete_forever,
                         size: 30,
@@ -62,13 +74,15 @@ class CustomeItemCart extends StatelessWidget {
               Row(
                 children: [
                   Text(
-                    'EGP 3500',
+                    'EGP ${productEntity.price}',
                     style: TextStyle(color: ColorManager.primary, fontSize: 18),
                   ),
                   SizedBox(
                     width: 45.w,
                   ),
-                  CountItemWidget()
+                  CountItemWidget(
+                    cartEntity: productEntity,
+                  )
                 ],
               ),
             ],

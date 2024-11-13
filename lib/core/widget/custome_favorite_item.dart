@@ -1,8 +1,11 @@
 import 'package:ecommercee/core/resources/assets_manager.dart';
 import 'package:ecommercee/core/resources/color_manager.dart';
+import 'package:ecommercee/domain/entities/AddProductToWishlistEntity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:injectable/injectable.dart';
 
+@injectable
 class CustomeFavoriteItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -36,7 +39,7 @@ class CustomeFavoriteItem extends StatelessWidget {
               Row(
                 children: [
                   Text(
-                    'Nike Air Jordon',
+                    'john',
                     style: TextStyle(
                         color: ColorManager.primary,
                         fontSize: 22,
@@ -53,11 +56,11 @@ class CustomeFavoriteItem extends StatelessWidget {
               Row(
                 children: [
                   Text(
-                    'EGP 3500',
+                    'EGP 2550',
                     style: TextStyle(color: ColorManager.primary, fontSize: 18),
                   ),
                   SizedBox(
-                    width: 20.w,
+                    width: 15.w,
                   ),
                   Container(
                       decoration: BoxDecoration(

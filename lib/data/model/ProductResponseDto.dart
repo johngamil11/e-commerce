@@ -54,7 +54,7 @@ class ProductDto extends ProductEntity {
     if (json['subcategory'] != null) {
       subcategory = [];
       json['subcategory'].forEach((v) {
-        subcategory?.add(Subcategory.fromJson(v));
+        subcategory?.add(SubcategoryDto.fromJson(v));
       });
     }
     ratingsQuantity = json['ratingsQuantity'];
@@ -78,15 +78,15 @@ class ProductDto extends ProductEntity {
   }
 }
 
-class Subcategory extends SubcategoryEntity {
-  Subcategory({
+class SubcategoryDto extends SubcategoryEntity {
+  SubcategoryDto({
     super.id,
     super.name,
     super.slug,
     super.category,
   });
 
-  Subcategory.fromJson(dynamic json) {
+  SubcategoryDto.fromJson(dynamic json) {
     id = json['_id'];
     name = json['name'];
     slug = json['slug'];

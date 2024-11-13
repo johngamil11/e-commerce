@@ -1,5 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:ecommercee/data/data_sources/remote_data-source/home_remote_data_source.dart';
+import 'package:ecommercee/domain/entities/AddCartResponseEntity.dart';
+import 'package:ecommercee/domain/entities/AddProductToWishlistEntity.dart';
 import 'package:ecommercee/domain/entities/CategoryOrBrandResponseEntity.dart';
 import 'package:ecommercee/domain/entities/ProductResponseEntity.dart';
 import 'package:ecommercee/domain/failures.dart';
@@ -30,4 +32,19 @@ class HomeRepositoryImp implements HomeRepository {
     var either = await homeRemoteDataSource.getAllProduct();
     return either.fold((error) => Left(error), (response) => Right(response));
   }
+
+  @override
+  Future<Either<Failures, AddCartResponseEntity>> AddToCart(
+      String productId) async {
+    var either = await homeRemoteDataSource.AddToCart(productId);
+    return either.fold((error) => Left(error), (response) => Right(response));
+  }
+
+  @override
+  Future<Either<Failures, AddProductToWishlistEntity>> AddToWhishlist(
+      String productId) async {
+    var either = await homeRemoteDataSource.AddtoWishlist(productId);
+    return either.fold((error) => Left(error), (response) => Right(response));
+  }
 }
+

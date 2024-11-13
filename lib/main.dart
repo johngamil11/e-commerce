@@ -2,6 +2,8 @@ import 'package:ecommercee/core/routes_manager/route_generator.dart';
 import 'package:ecommercee/core/routes_manager/routes.dart';
 import 'package:ecommercee/core/widget/shared_preference_utils.dart';
 import 'package:ecommercee/feature/auth/register/register_screen.dart';
+import 'package:ecommercee/feature/main_layout/cart/cubit/cart_screen_view_model.dart';
+import 'package:ecommercee/feature/main_layout/favorite_tab/cubit/wishlist_view_model.dart';
 import 'package:ecommercee/feature/main_layout/home_screen/cubit/home_tab_view_model.dart';
 import 'package:ecommercee/feature/main_layout/products/cubit/product_screen_view_model.dart';
 import 'package:flutter/material.dart';
@@ -29,8 +31,14 @@ void main() async {
     BlocProvider<HomeTabViewModel>(
       create: (context) => getIt<HomeTabViewModel>(),
     ),
+    BlocProvider<CartScreenViewModel>(
+      create: (context) => getIt<CartScreenViewModel>(),
+    ),
     BlocProvider<ProductScreenViewModel>(
       create: (context) => getIt<ProductScreenViewModel>(),
+    ),
+    BlocProvider<WishListViewModel>(
+      create: (context) => getIt<WishListViewModel>(),
     )
   ], child: MyApp()));
 }
@@ -41,6 +49,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var token = SharedPreferenceUtils.loadData('token');
+    print(token);
 
     return ScreenUtilInit(
       designSize: const Size(430, 932),

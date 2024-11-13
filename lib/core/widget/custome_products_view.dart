@@ -3,10 +3,12 @@ import 'package:ecommercee/core/resources/color_manager.dart';
 import 'package:ecommercee/core/routes_manager/routes.dart';
 import 'package:ecommercee/core/widget/custom_elevated_button.dart';
 import 'package:ecommercee/domain/entities/ProductResponseEntity.dart';
+import 'package:ecommercee/feature/main_layout/products/cubit/product_screen_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../feature/main_layout/favorite_tab/cubit/wishlist_view_model.dart';
 import '../../feature/main_layout/home_screen/cubit/home_tab_view_model.dart';
 
 class CustomeProductsView extends StatelessWidget {
@@ -135,7 +137,10 @@ class CustomeProductsView extends StatelessWidget {
                       width: 60.w,
                     ),
                     IconButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          ProductScreenViewModel.get(context)
+                              .addToCart(product.id ?? '');
+                        },
                         icon: Container(
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(25),
@@ -151,7 +156,9 @@ class CustomeProductsView extends StatelessWidget {
             ),
           )),
       IconButton(
-          onPressed: () {},
+          onPressed: () {
+            WishListViewModel.get(context).addToWishlist(product.id ?? '');
+          },
           icon: Container(
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(25),

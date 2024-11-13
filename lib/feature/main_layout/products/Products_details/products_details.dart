@@ -1,3 +1,4 @@
+import 'package:ecommercee/domain/entities/GetCartResponseEntity.dart';
 import 'package:ecommercee/domain/entities/ProductResponseEntity.dart';
 import 'package:ecommercee/feature/main_layout/products/Products_details/widge/count_item_widget.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -110,7 +111,7 @@ class ProductDetails extends StatelessWidget {
                   width: 35.w,
                 ),
 
-                CountItemWidget()
+                // CountItemWidget(cartEntity: cartEntity,)
               ],
             ),
             // Row(
