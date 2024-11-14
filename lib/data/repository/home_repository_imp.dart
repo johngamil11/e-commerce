@@ -3,6 +3,7 @@ import 'package:ecommercee/data/data_sources/remote_data-source/home_remote_data
 import 'package:ecommercee/domain/entities/AddCartResponseEntity.dart';
 import 'package:ecommercee/domain/entities/AddProductToWishlistEntity.dart';
 import 'package:ecommercee/domain/entities/CategoryOrBrandResponseEntity.dart';
+import 'package:ecommercee/domain/entities/GetWishlistResponseEntity.dart';
 import 'package:ecommercee/domain/entities/ProductResponseEntity.dart';
 import 'package:ecommercee/domain/failures.dart';
 import 'package:ecommercee/domain/repository/home_repository.dart';
@@ -44,6 +45,12 @@ class HomeRepositoryImp implements HomeRepository {
   Future<Either<Failures, AddProductToWishlistEntity>> AddToWhishlist(
       String productId) async {
     var either = await homeRemoteDataSource.AddtoWishlist(productId);
+    return either.fold((error) => Left(error), (response) => Right(response));
+  }
+
+  @override
+  Future<Either<Failures, GetWishlistResponseEntity>> GetWhishlist() async {
+    var either = await homeRemoteDataSource.GetWishlist();
     return either.fold((error) => Left(error), (response) => Right(response));
   }
 }
