@@ -144,7 +144,10 @@ class WishListTab extends StatelessWidget {
 //     );
 
     return BlocBuilder<WishListViewModel, WishlistState>(
-      bloc: WishListViewModel.get(context)..getWishlist(),
+      bloc: WishListViewModel.get(context)
+        ..addtoWishlistUseCase
+        ..getWishlist()
+        ..deleteItemInWishlistUseCase,
       builder: (context, state) {
         return Scaffold(
             appBar: AppBar(
@@ -162,7 +165,7 @@ class WishListTab extends StatelessWidget {
                 InkWell(onTap: () {}, child: Image.asset(IconAssets.cartIcon)),
               ],
             ),
-            body: state is CartSuccessState
+            body: state is GetWishlistSuccessState
                 ? Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Expanded(

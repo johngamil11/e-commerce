@@ -18,6 +18,10 @@ class ProductScreenViewModel extends Cubit<ProductStates> {
   List<ProductEntity> productsList = [];
   int numOfCartItems = 0;
 
+  void changeNumOfCartItems(int newNumber) {
+    numOfCartItems = newNumber;
+  }
+
   static ProductScreenViewModel get(context) =>
       BlocProvider.of<ProductScreenViewModel>(context);
 
@@ -41,7 +45,7 @@ class ProductScreenViewModel extends Cubit<ProductStates> {
       numOfCartItems = response.numOfCartItems!.toInt();
       print('num of catr items : $numOfCartItems');
       emit(AddToCartSuccessState(addCartResponseEntity: response));
-      numOfCartItems = numOfCartItems;
+      // numOfCartItems = numOfCartItems;
     });
   }
 }

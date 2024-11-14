@@ -1,4 +1,5 @@
 import 'package:ecommercee/domain/entities/AddProductToWishlistEntity.dart';
+import 'package:ecommercee/domain/entities/DeleteItemWishlistResponseEntity.dart';
 import 'package:ecommercee/domain/entities/GetWishlistResponseEntity.dart';
 import 'package:ecommercee/domain/entities/ProductResponseEntity.dart';
 
@@ -20,7 +21,6 @@ class WishlistStateErrorState extends WishlistState {
 }
 
 class GetWishlistLoadingState extends WishlistState {}
-
 class GetWishlistSuccessState extends WishlistState {
 // GetWishlistDataEntity getWishlistResponseEntity ;
   List<GetWishlistDataEntity> product;
@@ -29,9 +29,23 @@ class GetWishlistSuccessState extends WishlistState {
       // required this.getWishlistResponseEntity
       });
 }
-
 class GetWishlistErrorState extends WishlistState {
   Failures failures;
 
   GetWishlistErrorState({required this.failures});
+}
+
+class DeleteInWishlistStateLoadingState extends WishlistState {}
+
+class DeleteInWishlistStateSuccessState extends WishlistState {
+  DeleteItemWishlistResponseEntity deleteItemWishlistResponseEntity;
+
+  DeleteInWishlistStateSuccessState(
+      {required this.deleteItemWishlistResponseEntity});
+}
+
+class DeleteInWishlistStateErrorState extends WishlistState {
+  Failures failures;
+
+  DeleteInWishlistStateErrorState({required this.failures});
 }

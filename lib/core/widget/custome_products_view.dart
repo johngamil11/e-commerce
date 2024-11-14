@@ -157,7 +157,7 @@ class CustomeProductsView extends StatelessWidget {
           )),
       IconButton(
           onPressed: () {
-            WishListViewModel.get(context).getWishlist();
+            WishListViewModel.get(context).addToWishlist(product.id ?? '');
           },
           icon: Container(
               decoration: BoxDecoration(

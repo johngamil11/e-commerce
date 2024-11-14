@@ -45,6 +45,7 @@ import '../repository/home_repository.dart' as _i326;
 import '../use_cases/add_cart_use_case.dart' as _i424;
 import '../use_cases/add_to_wishlist_use_case.dart' as _i74;
 import '../use_cases/delete_item_in_cart_use_case.dart' as _i723;
+import '../use_cases/delete_item_in_wishlist_use_case.dart' as _i876;
 import '../use_cases/get_all_brands_use_case.dart' as _i59;
 import '../use_cases/get_all_categories_use_case.dart' as _i924;
 import '../use_cases/get_all_product_use_case.dart' as _i382;
@@ -114,6 +115,9 @@ extension GetItInjectableX on _i174.GetIt {
         _i74.AddtoWishlistUseCase(homeRepository: gh<_i326.HomeRepository>()));
     gh.factory<_i252.GetWishlistUseCase>(() =>
         _i252.GetWishlistUseCase(homeRepository: gh<_i326.HomeRepository>()));
+    gh.factory<_i876.DeleteItemInWishlistUseCase>(() =>
+        _i876.DeleteItemInWishlistUseCase(
+            homeRepository: gh<_i326.HomeRepository>()));
     gh.factory<_i474.HomeTabViewModel>(() => _i474.HomeTabViewModel(
           getAllGategoriesUseCase: gh<_i924.GetAllGategoriesUseCase>(),
           getAllBrandsUseCase: gh<_i59.GetAllBrandsUseCase>(),
@@ -125,6 +129,7 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i533.WishListViewModel>(() => _i533.WishListViewModel(
           addtoWishlistUseCase: gh<_i74.AddtoWishlistUseCase>(),
           getWishlistUseCase: gh<_i252.GetWishlistUseCase>(),
+          deleteItemInWishlistUseCase: gh<_i876.DeleteItemInWishlistUseCase>(),
         ));
     return this;
   }
