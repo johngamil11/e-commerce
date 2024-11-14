@@ -6,16 +6,20 @@ import 'package:ecommercee/data/data_sources/remote_data-source/home_remote_data
 import 'package:ecommercee/data/end_point.dart';
 import 'package:ecommercee/data/model/AddCartResponseDto.dart';
 import 'package:ecommercee/data/model/AddProductToWhishlistDto.dart';
+import 'package:ecommercee/data/model/GetWishlistResponseDto.dart';
 import 'package:ecommercee/data/model/ProductResponseDto.dart';
 import 'package:ecommercee/domain/entities/AddCartResponseEntity.dart';
 import 'package:ecommercee/domain/entities/AddProductToWishlistEntity.dart';
 import 'package:ecommercee/domain/entities/CategoryOrBrandResponseEntity.dart';
+import 'package:ecommercee/domain/entities/DeleteItemWishlistResponseEntity.dart';
+import 'package:ecommercee/domain/entities/GetWishlistResponseEntity.dart';
 import 'package:ecommercee/domain/entities/ProductResponseEntity.dart';
 import 'package:ecommercee/domain/failures.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../../../core/widget/shared_preference_utils.dart';
 import '../../../model/CategoryOrBrandResponseDto.dart';
+import '../../../model/DeleteItemWishlistResponseDto.dart';
 
 @Injectable(as: HomeRemoteDataSource)
 class HomeRemoteDaraSourceImp implements HomeRemoteDataSource {
@@ -155,6 +159,68 @@ class HomeRemoteDaraSourceImp implements HomeRemoteDataSource {
           return Left(serverError(errorMessage: addProductToWishlist.message!));
         } else {
           return Left(serverError(errorMessage: addProductToWishlist.message!));
+        }
+      } else {
+        return Left(NetworkError(
+            errorMessage: 'no internet connection , please try again'));
+      }
+    } catch (e) {
+      return Left(Failures(errorMessage: e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failures, GetWishlistResponseDto>> GetWishlist() async {
+    try {
+      List<ConnectivityResult> connectivityResult =
+          await Connectivity().checkConnectivity();
+      if (connectivityResult.contains(ConnectivityResult.mobile) ||
+          connectivityResult.contains(ConnectivityResult.wifi)) {
+        var token = SharedPreferenceUtils.loadData('token');
+        var response = await apiManager.getData(EndPoint.addToWishlist,
+            headers: {'token': token.toString()});
+
+        var GetWishlistItem = GetWishlistResponseDto.fromJson(response.data);
+        // print(GetWishlistItem);
+        if (response.statusCode! >= 200 && response.statusCode! < 300) {
+          return Right(GetWishlistItem);
+        } else if (response.statusCode == 401) {
+          return Left(serverError(errorMessage: GetWishlistItem.message!));
+        } else {
+          return Left(serverError(errorMessage: GetWishlistItem.message!));
+        }
+      } else {
+        return Left(NetworkError(
+            errorMessage: 'no internet connection , please try again'));
+      }
+    } catch (e) {
+      return Left(Failures(errorMessage: e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failures, DeleteItemWishlistResponseDto>> DeleteItemWishlst(
+      String productId) async {
+    try {
+      List<ConnectivityResult> connectivityResult =
+          await Connectivity().checkConnectivity();
+      if (connectivityResult.contains(ConnectivityResult.mobile) ||
+          connectivityResult.contains(ConnectivityResult.wifi)) {
+        var token = SharedPreferenceUtils.loadData('token');
+        var response = await apiManager.deleteData(
+            '${EndPoint.addToWishlist}/$productId',
+            headers: {'token': token.toString()});
+
+        var deleteItemWishlistResponse =
+            DeleteItemWishlistResponseDto.fromJson(response.data);
+        if (response.statusCode! >= 200 && response.statusCode! < 300) {
+          return Right(deleteItemWishlistResponse);
+        } else if (response.statusCode == 401) {
+          return Left(
+              serverError(errorMessage: deleteItemWishlistResponse.message!));
+        } else {
+          return Left(
+              serverError(errorMessage: deleteItemWishlistResponse.message!));
         }
       } else {
         return Left(NetworkError(

@@ -38,16 +38,19 @@ import '../../feature/main_layout/home_screen/cubit/home_tab_view_model.dart'
     as _i474;
 import '../../feature/main_layout/products/cubit/product_screen_view_model.dart'
     as _i84;
+import '../entities/GetWishlistResponseEntity.dart' as _i957;
 import '../repository/auth_repository.dart' as _i106;
 import '../repository/cart_repository.dart' as _i900;
 import '../repository/home_repository.dart' as _i326;
 import '../use_cases/add_cart_use_case.dart' as _i424;
 import '../use_cases/add_to_wishlist_use_case.dart' as _i74;
 import '../use_cases/delete_item_in_cart_use_case.dart' as _i723;
+import '../use_cases/delete_item_in_wishlist_use_case.dart' as _i876;
 import '../use_cases/get_all_brands_use_case.dart' as _i59;
 import '../use_cases/get_all_categories_use_case.dart' as _i924;
 import '../use_cases/get_all_product_use_case.dart' as _i382;
 import '../use_cases/get_cart_use_case.dart' as _i220;
+import '../use_cases/Get_wishlist_use_case.dart' as _i252;
 import '../use_cases/login_use_case.dart' as _i119;
 import '../use_cases/register_use_case.dart' as _i526;
 import '../use_cases/update_count_in_cart_use_case.dart' as _i786;
@@ -63,12 +66,13 @@ extension GetItInjectableX on _i174.GetIt {
       environment,
       environmentFilter,
     );
-    gh.factory<_i752.CustomeFavoriteItem>(() => _i752.CustomeFavoriteItem());
     gh.singleton<_i236.ApiManager>(() => _i236.ApiManager());
     gh.factory<_i728.AuthRemoteDataSource>(() =>
         _i282.AuthRemoteDataSourceImp(apiManager: gh<_i236.ApiManager>()));
     gh.factory<_i410.CartRemoteDataSource>(() =>
         _i977.CartRemoteDataSourceImp(apiManager: gh<_i236.ApiManager>()));
+    gh.factory<_i752.CustomeFavoriteItem>(() =>
+        _i752.CustomeFavoriteItem(getData: gh<_i957.GetWishlistDataEntity>()));
     gh.factory<_i839.HomeRemoteDataSource>(() =>
         _i641.HomeRemoteDaraSourceImp(apiManager: gh<_i236.ApiManager>()));
     gh.factory<_i900.CartRepository>(() => _i1003.GetCartRepositoryImp(
@@ -109,8 +113,11 @@ extension GetItInjectableX on _i174.GetIt {
         _i382.GetAllProductUseCase(homeRepository: gh<_i326.HomeRepository>()));
     gh.factory<_i74.AddtoWishlistUseCase>(() =>
         _i74.AddtoWishlistUseCase(homeRepository: gh<_i326.HomeRepository>()));
-    gh.factory<_i533.WishListViewModel>(() => _i533.WishListViewModel(
-        addtoWishlistUseCase: gh<_i74.AddtoWishlistUseCase>()));
+    gh.factory<_i252.GetWishlistUseCase>(() =>
+        _i252.GetWishlistUseCase(homeRepository: gh<_i326.HomeRepository>()));
+    gh.factory<_i876.DeleteItemInWishlistUseCase>(() =>
+        _i876.DeleteItemInWishlistUseCase(
+            homeRepository: gh<_i326.HomeRepository>()));
     gh.factory<_i474.HomeTabViewModel>(() => _i474.HomeTabViewModel(
           getAllGategoriesUseCase: gh<_i924.GetAllGategoriesUseCase>(),
           getAllBrandsUseCase: gh<_i59.GetAllBrandsUseCase>(),
@@ -118,6 +125,11 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i84.ProductScreenViewModel>(() => _i84.ProductScreenViewModel(
           getAllProductUseCase: gh<_i382.GetAllProductUseCase>(),
           addCartUseCase: gh<_i424.AddCartUseCase>(),
+        ));
+    gh.factory<_i533.WishListViewModel>(() => _i533.WishListViewModel(
+          addtoWishlistUseCase: gh<_i74.AddtoWishlistUseCase>(),
+          getWishlistUseCase: gh<_i252.GetWishlistUseCase>(),
+          deleteItemInWishlistUseCase: gh<_i876.DeleteItemInWishlistUseCase>(),
         ));
     return this;
   }
